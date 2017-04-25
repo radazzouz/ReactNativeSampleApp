@@ -48,11 +48,6 @@ RCT_EXPORT_METHOD(get:(RCTResponseSenderBlock)callback)
                 @"version": version,
                 @"locale": locale
                 }]);
-  
-  if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"BUDDYBUILD_SETTING_ENABLE_CRASH_REPORTING"] intValue] == 1)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      strcpy("buddybuild test crash", 0);
-    });
 }
 
 @end
