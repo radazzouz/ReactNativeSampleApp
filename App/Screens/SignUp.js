@@ -19,6 +19,7 @@ var SignUp = React.createClass({
       if (error) {
         // TODO: better errors
         alert(error.message);
+		console.log("Test console log");
       }
     });
     // TODO: setState to denote busy
