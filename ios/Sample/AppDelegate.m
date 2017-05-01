@@ -12,7 +12,6 @@
 #import "RCTRootView.h"
 
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
-
 #import <asl.h>
 #import "RCTLog.h"
 
@@ -21,6 +20,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [BuddyBuildSDK setup];
+  
+  RCTSetLogThreshold(RCTLogLevelInfo);
+  RCTSetLogFunction(BuddyBuildReactNativeLogFunction);
+  
   NSURL *jsCodeLocation;
   
   /**
@@ -74,19 +77,16 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  RCTSetLogThreshold(RCTLogLevelInfo);
-  RCTSetLogFunction(BuddyBuildReactNativeLog);
-  
   return YES;
 }
 
-RCTLogFunction BuddyBuildReactNativeLog = ^(RCTLogLevel level, __unused RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
+RCTLogFunction BuddyBuildReactNativeLogFunction = ^(RCTLogLevel level, __unused RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
   NSString *log = RCTFormatLog([NSDate date], level, fileName, lineNumber, message);
 #ifdef DEBUG
   fprintf(stderr, "%s\n", log.UTF8String);
   fflush(stderr);
 #else
-  NSString *theLog = [NSString stringWithFormat: @"[REACT NATIVE LOG]: %s", log.UTF8String];
+  NSString *theLog = [NSString stringWithFormat: @"[REACT NATIVE LOG] %s", log.UTF8String];
   [BuddyBuildSDK log:theLog];
 #endif
   int aslLevel;
