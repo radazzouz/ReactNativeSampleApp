@@ -22,7 +22,7 @@
 {
   [BuddyBuildSDK setup];
   NSURL *jsCodeLocation;
-
+  
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -37,8 +37,8 @@
    * on the same Wi-Fi network.
    */
   
-//  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-
+  //  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. To re-generate the static bundle
@@ -48,9 +48,9 @@
    *
    * see http://facebook.github.io/react-native/docs/runningondevice.html
    */
-
-//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-
+  
+  //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
   
 #ifdef TEST_ENVIRONMENT
   // different port
@@ -67,7 +67,7 @@
                                                       moduleName:@"Sample"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
@@ -75,30 +75,20 @@
   [self.window makeKeyAndVisible];
   
   RCTSetLogThreshold(RCTLogLevelInfo);
-  RCTSetLogFunction(BuddyBuildReactNativeLogFunction);
+  RCTSetLogFunction(BuddyBuildReactNativeLog);
   
   return YES;
 }
 
-RCTLogFunction BuddyBuildReactNativeLogFunction = ^(
-                                               RCTLogLevel level,
-                                               __unused RCTLogSource source,
-                                               NSString *fileName,
-                                               NSNumber *lineNumber,
-                                               NSString *message
-                                               )
-{
+RCTLogFunction BuddyBuildReactNativeLog = ^(RCTLogLevel level, __unused RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
   NSString *log = RCTFormatLog([NSDate date], level, fileName, lineNumber, message);
-  
-  
-//#ifdef DEBUG
-//  fprintf(stderr, "%s\n", log.UTF8String);
-//  fflush(stderr);
-//#else
-  NSString *theLog = [NSString stringWithFormat: @"REACT NATIVE LOG: %s", log.UTF8String];
+#ifdef DEBUG
+  fprintf(stderr, "%s\n", log.UTF8String);
+  fflush(stderr);
+#else
+  NSString *theLog = [NSString stringWithFormat: @"[REACT NATIVE LOG]: %s", log.UTF8String];
   [BuddyBuildSDK log:theLog];
-//#endif
-  
+#endif
   int aslLevel;
   switch(level) {
     case RCTLogLevelTrace:
@@ -118,7 +108,6 @@ RCTLogFunction BuddyBuildReactNativeLogFunction = ^(
       break;
   }
   asl_log(NULL, NULL, aslLevel, "%s", message.UTF8String);
-  
-  
 };
+
 @end
