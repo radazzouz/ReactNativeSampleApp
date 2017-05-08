@@ -5,7 +5,6 @@ import AuthActions from '../Actions/AuthActions';
 
 var SignUp = React.createClass({
   mixins: [AuthHelper],
-
   getDefaultProps: function() {
     return {
       authType: 'signup'
@@ -19,7 +18,7 @@ var SignUp = React.createClass({
       if (error) {
         // TODO: better errors
         alert(error.message);
-		console.log("Test console log");
+			  console.log("Testing React Native logging with the buddybuild SDK");
       }
     });
     // TODO: setState to denote busy
