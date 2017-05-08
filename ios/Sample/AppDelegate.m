@@ -82,13 +82,8 @@
 
 RCTLogFunction BuddyBuildReactNativeLogFunction = ^(RCTLogLevel level, __unused RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
   NSString *log = RCTFormatLog([NSDate date], level, fileName, lineNumber, message);
-#ifdef DEBUG
-  fprintf(stderr, "%s\n", log.UTF8String);
-  fflush(stderr);
-#else
   NSString *theLog = [NSString stringWithFormat: @"[REACT NATIVE LOG] %s", log.UTF8String];
   [BuddyBuildSDK log:theLog];
-#endif
   int aslLevel;
   switch(level) {
     case RCTLogLevelTrace:
