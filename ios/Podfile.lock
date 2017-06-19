@@ -1,5 +1,5 @@
 PODS:
-  - BuddyBuildSDK (1.0.15)
+  - BuddyBuildSDK (1.0.16)
   - SimulatorRemoteNotifications (0.0.3)
 
 DEPENDENCIES:
@@ -7,7 +7,7 @@ DEPENDENCIES:
   - SimulatorRemoteNotifications (~> 0.0.3)
 
 SPEC CHECKSUMS:
-  BuddyBuildSDK: b3038125612b1ad389c2aa89e4787dcb75cac89a
+  BuddyBuildSDK: 2c5469eee2981a3365386e46393e97068d75e4f4
   SimulatorRemoteNotifications: 1610643e0582b2af67bc254b071ace4077e8ef86
 
 PODFILE CHECKSUM: 1dfbe79c5873007b6ff10bba0fba4a4e50bdb35b
